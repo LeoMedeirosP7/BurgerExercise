@@ -1,0 +1,26 @@
+.Toolbar{
+    display: flex;
+    align-items: center;
+    background-color: #621700;
+    justify-content: space-between;
+    padding: 0% 20px;
+    z-index: 100;
+}
+
+.Menu{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: #00aa00;
+    width: 50%;
+}
+
+.textMenu{
+    width:5%;
+    display: flex;
+    font-size: 15px;
+    justify-content: center;
+}
+
+.textMenu:hover {
+    color: white;
+    cursor: pointer;
+}

@@ -1,0 +1,40 @@
+.Setup{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.Side{
+    display: flex;
+    flex-direction: row;
+}
+
+.Group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 550px;
+    z-index: 100;
+    margin-top: 0px;
+}
+
+.GroupCentralize{
+    margin-left: 241px;
+}
+
+.OrderButton{
+    background-color: #621700;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: #00aa00;
+    width:155px;
+    height: 50px;
+    text-align: center;
+    align-items: center;
+    font-size: 15px;
+}
+
+.OrderButton:hover{
+    background-color: white;
+    color:#621700;
+    cursor: pointer;
+}

@@ -1,0 +1,7 @@
+.ToolB{
+    width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 15px;
+}

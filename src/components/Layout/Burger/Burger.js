@@ -10,21 +10,6 @@ const arrRepeat = (num) => {
     return array;
 }
 
-const filling = (ingredients) => {
-    const ingredientsName = ['Meat', 'Salad', 'Bacon', 'Cheese'];
-    return (
-        <>
-            {
-                arrRepeat(4).map(
-                    (item, index) => arrRepeat(ingredients[index]).map(
-                        () => <BurgerIngredient ingredient={ingredientsName[index]} />
-                    ) 
-                ) 
-            }
-        </>
-    );
-};
-
 const burger = (props) => {
     const verify = (props.filling.length !== 0);
 

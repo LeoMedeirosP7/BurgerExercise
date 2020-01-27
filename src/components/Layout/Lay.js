@@ -24,7 +24,6 @@ const Lay = (props) => {
     const onSortEnd = ({oldIndex, newIndex}) => {
         const newPosition = arrayMove(filling, oldIndex, newIndex);
         setFilling(newPosition);
-        debugger
       };
 
     const addIngredient = (ingredient) => {
@@ -65,50 +64,45 @@ const Lay = (props) => {
             //if the ingredient is meat
             case 'Meat':
                 if(meat > 0)
-                    filling.map((item, index) => {
-                        console.log('ei')
-                        if(item === 'Meat'){
-                            filling.splice(index, 1);
-                            setMeat(meat - 1);
-                            return 0;
-                        }
-                    });
+                   for(let index = 0; index < filling.length; index+=1)
+                    if(filling[index] === 'Meat'){
+                        filling.splice(index, 1);
+                        setMeat(meat - 1);
+                        break;
+                   }
                 break;
 
             //if the ingredient is salad
             case 'Salad':
                 if(salad > 0)
-                    filling.map((item, index) => {
-                        if(item === 'Salad'){
-                            filling.splice(index, 1);
-                            setMeat(salad - 1);
-                            return 0;
-                        }
-                    });
+                   for(let index = 0; index < filling.length; index+=1)
+                    if(filling[index] === 'Salad'){
+                        filling.splice(index, 1);
+                        setSalad(salad - 1);
+                        break;
+                    }
                 break;
 
             //if the ingredient is bacon
             case 'Bacon':
                 if(bacon > 0)
-                    filling.map((item, index) => {
-                        if(item === 'Bacon'){
-                            filling.splice(index, 1);
-                            setMeat(bacon - 1);
-                            return 0;
-                        }
-                    });
+                   for(let index = 0; index < filling.length; index++)
+                    if(filling[index] === 'Bacon'){
+                        filling.splice(index, 1);
+                        setBacon(bacon - 1);
+                        break;
+                   }
                 break;
 
             //if the ingredient is cheese
             case 'Cheese':
                 if(cheese > 0)
-                    filling.map((item, index) => {
-                        if(item === 'Cheese'){
-                            filling.splice(index, 1);
-                            setMeat(cheese - 1);
-                            return 0;
-                        }
-                    });
+                   for(let index = 0; index < filling.length; index++)
+                    if(filling[index] === 'Cheese'){
+                        filling.splice(index, 1);
+                        setCheese(cheese - 1);
+                        break;
+                   }
                 break;
             
             //wrong using

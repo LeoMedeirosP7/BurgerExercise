@@ -24,7 +24,7 @@ const Lay = (props) => {
     const onSortEnd = ({oldIndex, newIndex}) => {
         const newPosition = arrayMove(filling, oldIndex, newIndex);
         setFilling(newPosition);
-      };
+    };
 
     const addIngredient = (ingredient) => {
         switch (ingredient){

@@ -10,7 +10,7 @@ import arrayMove from 'array-move';
 
 const Lay = (props) => {
   
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState(2);
     const [side, setSide] = useState(false);
     const [order, setOrder] = useState(false);
 
@@ -117,7 +117,7 @@ const Lay = (props) => {
     }
 
     useEffect(() => {
-        setPrice((meat * 1.3) + (salad * 0.5) + (bacon * 0.7) + (cheese * 0.4));
+        setPrice((meat * 1.3) + (salad * 0.5) + (bacon * 0.7) + (cheese * 0.4) + 2);
     },[meat, salad, bacon, cheese]);
     
     const ingredients = [meat, salad, bacon, cheese];
@@ -162,7 +162,8 @@ const Lay = (props) => {
                         salad={salad}
                         cheese={cheese}
                         bacon={bacon}
-                        price={price.toFixed(2)}/>
+                        price={price.toFixed(2)}
+                        filling={filling}/>
                 </div>
             </main>
         </div>

@@ -7,13 +7,12 @@
 .Order{
     z-Index: 300;
     width: 500px;
-    height: 580px;
-    padding: 40px;
+    height: auto;
+    padding: 10px;
     background-color: #EEEEEE;
-    position: absolute;
-    bottom:10px;
-    left: 380px;
+    position: relative;
     display: flex;
+    bottom: 450px;
     flex-direction: column;
     align-items: center;
 }
@@ -43,4 +42,10 @@
 .Send{
     color: #00AA00;
     border: 0px;
+}
+
+.SeparatedText{
+    margin-top: 30px;
+    border: 1px solid black;
+    padding: 20px;
 }

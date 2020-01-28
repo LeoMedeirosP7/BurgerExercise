@@ -3,13 +3,6 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 import './Burger.css';
 import {SortableContainer, SortableElement} from 'react-sortable-hoc';
 
-const arrRepeat = (num) => {
-    let array = [];
-    for(let i = 0; i < num; i++)
-        array.push(0);
-    return array;
-}
-
 const burger = (props) => {
     const verify = (props.filling.length !== 0);
 
@@ -17,9 +10,9 @@ const burger = (props) => {
 
     const SortableList = SortableContainer(({items}) => {
         return (
-          <ul>
+          <ul className="Sortable">
             {items.map((value, index) => (
-              <SortableItem key={`item-${value}`} index={index} value={value} />
+              <SortableItem className="Sortable" key={`item-${value}`} index={index} value={value} />
             ))}
           </ul>
         );

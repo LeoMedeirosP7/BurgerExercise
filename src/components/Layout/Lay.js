@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Toolbar from './Toolbar/Toolbar';
 import Burger from './Burger/Burger';
 import BuildControls from './BuildControls/BuildControls';
@@ -7,19 +7,33 @@ import './Lay.css';
 import OrderSummary from './OrderSummary/OrderSummary';
 import arrayMove from 'array-move';
 
+import {connect} from 'react-redux';
 
 const Lay = (props) => {
-  
-    const [price, setPrice] = useState(2);
-    const [side, setSide] = useState(false);
-    const [order, setOrder] = useState(false);
+    const {
+        filling,
+        setFilling,
+        addMeat,
+        rmvMeat,
+        addSalad,
+        rmvSalad,
+        addBacon,
+        rmvBacon,
+        addCheese,
+        rmvCheese,
+        meat,
+        salad,
+        bacon,
+        cheese,
+        price,
+        setPrice,
+        order,
+        setOrder,
+        side,
+        setSide,
+    } = props;
 
-    const [meat, setMeat] = useState(0);
-    const [salad, setSalad] = useState(0);
-    const [cheese, setCheese] = useState(0);
-    const [bacon, setBacon] = useState(0);
-
-    const [filling, setFilling] = useState([]);
+    const localFilling = filling;
 
     const onSortEnd = ({oldIndex, newIndex}) => {
         const newPosition = arrayMove(filling, oldIndex, newIndex);
@@ -30,26 +44,22 @@ const Lay = (props) => {
         switch (ingredient){
             //if the ingredient is meat
             case 'Meat':
-                filling.push('Meat');
-                setMeat(meat + 1);
+                addMeat();
                 break;
 
             //if the ingredient is salad
             case 'Salad':
-                filling.push('Salad');
-                setSalad(salad+1);
+                addSalad();
                 break;
 
             //if the ingredient is bacon
             case 'Bacon':
-                filling.push('Bacon');
-                setBacon(bacon + 1);
+                addBacon();
                 break;
 
             //if the ingredient is cheese
             case 'Cheese':
-                filling.push('Cheese');
-                setCheese(cheese + 1);
+                addCheese();
                 break;
             
             //wrong using
@@ -63,46 +73,23 @@ const Lay = (props) => {
         switch (ingredient){
             //if the ingredient is meat
             case 'Meat':
-                if(meat > 0)
-                   for(let index = 0; index < filling.length; index+=1)
-                    if(filling[index] === 'Meat'){
-                        filling.splice(index, 1);
-                        setMeat(meat - 1);
-                        break;
-                   }
+                rmvMeat();
                 break;
 
             //if the ingredient is salad
             case 'Salad':
-                if(salad > 0)
-                   for(let index = 0; index < filling.length; index+=1)
-                    if(filling[index] === 'Salad'){
-                        filling.splice(index, 1);
-                        setSalad(salad - 1);
-                        break;
-                    }
+                rmvSalad();
+                break;
                 break;
 
             //if the ingredient is bacon
             case 'Bacon':
-                if(bacon > 0)
-                   for(let index = 0; index < filling.length; index++)
-                    if(filling[index] === 'Bacon'){
-                        filling.splice(index, 1);
-                        setBacon(bacon - 1);
-                        break;
-                   }
+                rmvBacon();
                 break;
 
             //if the ingredient is cheese
             case 'Cheese':
-                if(cheese > 0)
-                   for(let index = 0; index < filling.length; index++)
-                    if(filling[index] === 'Cheese'){
-                        filling.splice(index, 1);
-                        setCheese(cheese - 1);
-                        break;
-                   }
+                rmvCheese();
                 break;
             
             //wrong using
@@ -113,28 +100,24 @@ const Lay = (props) => {
 
     const sendRequest=(props) => {
         alert('Request sended, please wait :D');
-        setOrder(false);
+        setOrder();
     }
 
-    useEffect(() => {
-        setPrice((meat * 1.3) + (salad * 0.5) + (bacon * 0.7) + (cheese * 0.4) + 2);
-    },[meat, salad, bacon, cheese]);
-    
     const ingredients = [meat, salad, bacon, cheese];
+    useEffect(() => {setPrice();} , [meat, salad, bacon, cheese]);
 
     let classeMain = "";
     let classeGroup="Group";
-    if(side){
+    if (side) {
         classeMain="Side";
-        classeGroup+=" GroupCentralize";
-    }
-    else{
+        classeGroup += " GroupCentralize";
+    } else {
         classeMain="Setup";
     }
 
     return(
         <div>
-            <Toolbar menu={() => setSide(!side)} />
+            <Toolbar menu={() => setSide()} />
 
             <main className={classeMain}>
 
@@ -146,28 +129,49 @@ const Lay = (props) => {
                         ingredients={ingredients}
                         side={side} 
                         filling={filling}
-                        onSortEnd={onSortEnd}/>
+                        onSortEnd={onSortEnd}
+                    />
 
                     <b className="priceCaption">PRICE: U${price.toFixed(2)}</b>
 
                     <BuildControls add={addIngredient} rmv={removeIngredient} />
 
-                    <button className='OrderButton' onClick={() => setOrder(true)}>Order Summary</button>
+                    <button className='OrderButton' onClick={() => setOrder()}>Order Summary</button>
 
                     <OrderSummary 
                         order={order} 
-                        unOrder={() => setOrder(false)}
+                        unOrder={() => setOrder()}
                         sendRequest={sendRequest}
                         meat={meat}
                         salad={salad}
                         cheese={cheese}
                         bacon={bacon}
                         price={price.toFixed(2)}
-                        filling={filling}/>
+                        filling={filling}
+                    />
                 </div>
             </main>
         </div>
     );
 }
 
-export default Lay;
+const mapStateToProps = state => ({ ...state });
+
+const mapDispatchToProps = dispatch => (
+    {
+        setFilling: (localFilling) => dispatch({type: 'SET_FILLING', value: localFilling}),
+        addMeat: () => dispatch({type: 'ADD_MEAT'}),
+        rmvMeat: () => dispatch({type: 'RMV_MEAT'}),
+        addSalad: () => dispatch({type: 'ADD_SALAD'}),
+        rmvSalad: () => dispatch({type: 'RMV_SALAD'}),
+        addCheese: () => dispatch({type: 'ADD_CHEESE'}),
+        rmvCheese: () => dispatch({type: 'RMV_CHEESE'}),
+        addBacon: () => dispatch({type: 'ADD_BACON'}),
+        rmvBacon: () => dispatch({type: 'RMV_BACON'}),
+        setOrder: () => dispatch({type: 'SET_ORDER'}),
+        setSide: () => dispatch({type: 'SET_SIDE'}),
+        setPrice: () => dispatch(({type: 'SET_PRICE'})),
+    }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Lay);

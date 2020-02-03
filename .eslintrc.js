@@ -16,7 +16,8 @@ module.exports = {
         "console": true,
         "alert": true,
         "test": true,
-        "expect": true
+        "expect": true,
+        "require": true,
     },
     "settings": {
         "react": {

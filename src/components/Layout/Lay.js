@@ -7,6 +7,7 @@ import './Lay.css';
 import OrderSummary from './OrderSummary/OrderSummary';
 import arrayMove from 'array-move';
 import PropTypes from 'prop-types';
+import Actions from './../../reduxStore/actions';
 
 import {connect} from 'react-redux';
 
@@ -158,17 +159,17 @@ const mapStateToProps = state => ({ ...state });
 const mapDispatchToProps = dispatch => (
     {
         setFilling: (localFilling) => dispatch({type: 'SET_FILLING', value: localFilling}),
-        addMeat: () => dispatch({type: 'ADD_MEAT'}),
-        rmvMeat: () => dispatch({type: 'RMV_MEAT'}),
-        addSalad: () => dispatch({type: 'ADD_SALAD'}),
-        rmvSalad: () => dispatch({type: 'RMV_SALAD'}),
-        addCheese: () => dispatch({type: 'ADD_CHEESE'}),
-        rmvCheese: () => dispatch({type: 'RMV_CHEESE'}),
-        addBacon: () => dispatch({type: 'ADD_BACON'}),
-        rmvBacon: () => dispatch({type: 'RMV_BACON'}),
-        setOrder: () => dispatch({type: 'SET_ORDER'}),
-        setSide: () => dispatch({type: 'SET_SIDE'}),
-        setPrice: () => dispatch(({type: 'SET_PRICE'})),
+        addMeat: () => dispatch({type: Actions.newMeat}),
+        rmvMeat: () => dispatch({type: Actions.removeMeat}),
+        addSalad: () => dispatch({type: Actions.newSalad}),
+        rmvSalad: () => dispatch({type: Actions.removeSalad}),
+        addCheese: () => dispatch({type: Actions.newCheese}),
+        rmvCheese: () => dispatch({type: Actions.removeCheese}),
+        addBacon: () => dispatch({type: Actions.newBacon}),
+        rmvBacon: () => dispatch({type: Actions.removeBacon}),
+        setOrder: () => dispatch({type: Actions.alterOrder}),
+        setSide: () => dispatch({type: Actions.alterSide}),
+        setPrice: () => dispatch(({type: Actions.updatePrice})),
     }
 );
 

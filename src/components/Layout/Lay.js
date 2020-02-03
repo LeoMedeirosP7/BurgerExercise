@@ -6,6 +6,7 @@ import SideDrawer from './SideDrawer/SideDrawer';
 import './Lay.css';
 import OrderSummary from './OrderSummary/OrderSummary';
 import arrayMove from 'array-move';
+import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux';
 
@@ -32,8 +33,6 @@ const Lay = (props) => {
         side,
         setSide,
     } = props;
-
-    const localFilling = filling;
 
     const onSortEnd = ({oldIndex, newIndex}) => {
         const newPosition = arrayMove(filling, oldIndex, newIndex);
@@ -80,7 +79,6 @@ const Lay = (props) => {
             case 'Salad':
                 rmvSalad();
                 break;
-                break;
 
             //if the ingredient is bacon
             case 'Bacon':
@@ -98,7 +96,7 @@ const Lay = (props) => {
         }
     }
 
-    const sendRequest=(props) => {
+    const sendRequest=() => {
         alert('Request sended, please wait :D');
         setOrder();
     }
@@ -173,5 +171,28 @@ const mapDispatchToProps = dispatch => (
         setPrice: () => dispatch(({type: 'SET_PRICE'})),
     }
 );
+
+Lay.propTypes = {
+    filling: PropTypes.array,
+    setFilling: PropTypes.func,
+    addMeat: PropTypes.func,
+    rmvMeat: PropTypes.func,
+    addSalad: PropTypes.func,
+    rmvSalad: PropTypes.func,
+    addBacon: PropTypes.func,
+    rmvBacon: PropTypes.func,
+    addCheese: PropTypes.func,
+    rmvCheese: PropTypes.func,
+    meat: PropTypes.number,
+    salad: PropTypes.number,
+    bacon: PropTypes.number,
+    cheese: PropTypes.number,
+    price: PropTypes.number,
+    setPrice: PropTypes.func,
+    order: PropTypes.bool,
+    setOrder: PropTypes.func,
+    side: PropTypes.bool,
+    setSide: PropTypes.bool,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lay);

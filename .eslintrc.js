@@ -14,6 +14,9 @@ module.exports = {
         "URLSearchParams": true,
         "process": true,
         "console": true,
+        "alert": true,
+        "test": true,
+        "expect": true
     },
     "settings": {
         "react": {

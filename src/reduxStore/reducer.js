@@ -101,11 +101,12 @@ const rootReducer = (state=initialState, action) => {
                 filling: action.value
             }
 
-        case 'SET_PRICE':
-            const newPrice = (state.meat * 1.3) + (state.salad * 0.5) + (state.bacon * 0.7) + (state.cheese * 0.4) + 2;
-            return {
-                ...state,
-                price: newPrice
+        case 'SET_PRICE': {
+                const newPrice = (state.meat * 1.3) + (state.salad * 0.5) + (state.bacon * 0.7) + (state.cheese * 0.4) + 2;
+                return {
+                    ...state,
+                    price: newPrice
+                }
             }
 
         case 'SET_SIDE':

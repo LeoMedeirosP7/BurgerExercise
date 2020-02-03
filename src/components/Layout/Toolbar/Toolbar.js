@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from './../Logo/Logo';
 import Navigation from './../Navigation/Navigation';
 import './Toolbar.css';
+import PropTypes from 'prop-types';
 
 const toolbar = (props) => (
     <header>
@@ -14,5 +15,9 @@ const toolbar = (props) => (
         </div>
     </header>
 );
+
+toolbar.propTypes = {
+    menu: PropTypes.func
+};
 
 export default toolbar;

@@ -1,9 +1,10 @@
 import React from 'react';
 import './OrderSummary.css';
 import Logo from './../Logo/Logo';
+import PropTypes from 'prop-types';
 
 const orderSummary = (props) => {
-    const verify = ((props.meat > 0)||(props.salad > 0)||(props.Cheese > 0)||(props.bacon > 0));
+    const verify = ((props.meat > 0)||(props.salad > 0)||(props.cheese > 0)||(props.bacon > 0));
     const quantities = (
         <div>
             {props.meat > 0 ? <p>Meat: {props.meat}</p> : null}
@@ -12,7 +13,7 @@ const orderSummary = (props) => {
             {props.bacon > 0 ? <p>Bacon: {props.bacon}</p> : null}
 
             <p style={{marginTop: '50px'}}>Filling Sequence: </p>
-            {props.filling.map((item) => (<p>{item}</p>))}
+            {props.filling.map((item, index) => (<p key={`${item}-${index}`}>{item}</p>))}
         </div>
     );
 
@@ -35,6 +36,19 @@ const orderSummary = (props) => {
         </div> 
         : null
     );
+};
+
+orderSummary.propTypes = {
+    sendRequest: PropTypes.func,
+    unOrder: PropTypes.func,
+    order: PropTypes.bool,
+    price: PropTypes.number,
+    filling: PropTypes.array,
+
+    bacon: PropTypes.number,
+    cheese: PropTypes.number,
+    salad: PropTypes.number,
+    meat: PropTypes.number,
 };
 
 export default orderSummary;

@@ -1,19 +1,23 @@
 import React, { useEffect } from "react";
+import PropTypes from 'prop-types';
+
+import arrayMove from 'array-move';
+
 import Toolbar from './Toolbar/Toolbar';
 import Burger from './Burger/Burger';
 import BuildControls from './BuildControls/BuildControls';
 import SideDrawer from './SideDrawer/SideDrawer';
-import './Lay.css';
 import OrderSummary from './OrderSummary/OrderSummary';
-import arrayMove from 'array-move';
-import PropTypes from 'prop-types';
-import Actions from './../../reduxStore/actions';
+import './Lay.css';
 
 import {connect} from 'react-redux';
+import * as pageManagementActions from './../../reduxStore/actions/pageManagementActions';
+import * as fillingManagementActions from './../../reduxStore/actions/fillingManagementActions'
+
+const Actions = {...pageManagementActions, ...fillingManagementActions};
 
 const Lay = (props) => {
     const {
-        filling,
         setFilling,
         addMeat,
         rmvMeat,
@@ -23,17 +27,24 @@ const Lay = (props) => {
         rmvBacon,
         addCheese,
         rmvCheese,
+        setPrice,
+        setOrder,
+        setSide,
+    } = props;
+
+    const {
+        filling,
         meat,
         salad,
         bacon,
         cheese,
         price,
-        setPrice,
+    } = props.fillingManagement;
+
+    const {
         order,
-        setOrder,
-        side,
-        setSide,
-    } = props;
+        side
+    } = props.pageManagement;
 
     const onSortEnd = ({oldIndex, newIndex}) => {
         const newPosition = arrayMove(filling, oldIndex, newIndex);
@@ -113,7 +124,6 @@ const Lay = (props) => {
     } else {
         classeMain="Setup";
     }
-
     return(
         <div>
             <Toolbar menu={() => setSide()} />
@@ -145,7 +155,7 @@ const Lay = (props) => {
                         salad={salad}
                         cheese={cheese}
                         bacon={bacon}
-                        price={price.toFixed(2)}
+                        price={price}
                         filling={filling}
                     />
                 </div>
@@ -154,11 +164,13 @@ const Lay = (props) => {
     );
 }
 
-const mapStateToProps = state => ({ ...state });
+const mapStateToProps = state => ({ 
+        fillingManagement: state.fillingManagement, 
+        pageManagement: state.pageManagement
+});
 
-const mapDispatchToProps = dispatch => (
-    {
-        setFilling: (localFilling) => dispatch({type: 'SET_FILLING', value: localFilling}),
+const mapDispatchToProps = dispatch => ({
+        setFilling: (localFilling) => dispatch({type: Actions.alterFilling, value: localFilling}),
         addMeat: () => dispatch({type: Actions.newMeat}),
         rmvMeat: () => dispatch({type: Actions.removeMeat}),
         addSalad: () => dispatch({type: Actions.newSalad}),
@@ -167,33 +179,43 @@ const mapDispatchToProps = dispatch => (
         rmvCheese: () => dispatch({type: Actions.removeCheese}),
         addBacon: () => dispatch({type: Actions.newBacon}),
         rmvBacon: () => dispatch({type: Actions.removeBacon}),
+        setPrice: () => dispatch(({type: Actions.updatePrice})),
         setOrder: () => dispatch({type: Actions.alterOrder}),
         setSide: () => dispatch({type: Actions.alterSide}),
-        setPrice: () => dispatch(({type: Actions.updatePrice})),
-    }
-);
+});
 
 Lay.propTypes = {
+    fillingManagement: PropTypes.object,
+    pageManagement: PropTypes.object,
+    
     filling: PropTypes.array,
     setFilling: PropTypes.func,
+
     addMeat: PropTypes.func,
     rmvMeat: PropTypes.func,
+
     addSalad: PropTypes.func,
     rmvSalad: PropTypes.func,
+
     addBacon: PropTypes.func,
     rmvBacon: PropTypes.func,
+
     addCheese: PropTypes.func,
     rmvCheese: PropTypes.func,
+
     meat: PropTypes.number,
     salad: PropTypes.number,
     bacon: PropTypes.number,
     cheese: PropTypes.number,
+
     price: PropTypes.number,
     setPrice: PropTypes.func,
+
     order: PropTypes.bool,
     setOrder: PropTypes.func,
+
     side: PropTypes.bool,
-    setSide: PropTypes.bool,
+    setSide: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lay);

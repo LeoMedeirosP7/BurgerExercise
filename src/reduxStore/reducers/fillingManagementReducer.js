@@ -1,9 +1,7 @@
-const Actions = require(`./actions.js`)
+const Actions = require(`../actions/fillingManagementActions`);
 
 const initialState = {
     price: 2,
-    side: false,
-    order: false,
     meat: 0,
     salad: 0,
     cheese: 0,
@@ -14,36 +12,42 @@ const initialState = {
 const {
     newMeat,
     removeMeat,
+
     newSalad,
     removeSalad,
+
     newCheese,
     removeCheese,
+
     newBacon,
     removeBacon,
-    alterOrder,
+
     alterFilling,
+
     updatePrice,
-    alterSide
 } = Actions;
 
-const rootReducer = (state=initialState, action) => {
+const fillingManagementReducer = (state=initialState, action) => {
     switch(action.type){
         case newMeat:{
+            const newStateMeat = state.meat + 1;
             return {
                 ...state,
-                meat: state.meat + 1,
+                meat: newStateMeat,
                 filling: state.filling.concat('Meat')
             };
         }
         
         case removeMeat:{
             if( (state.meat > 0) && (state.filling !== [])){
-                const newFilling=[...state.filling];
-                newFilling.splice( state.filling.indexOf('Meat'), 1 );
+                const stateFilling=[...state.filling];
+                stateFilling.splice( stateFilling.indexOf('Meat'), 1 );
+
+                const stateMeat = state.meat - 1;
                 return {
                     ...state,
-                    meat: state.meat - 1,
-                    filling: newFilling
+                    meat: stateMeat,
+                    filling: stateFilling
                 };
 
             }
@@ -51,9 +55,10 @@ const rootReducer = (state=initialState, action) => {
         }
             
         case newSalad:{
+            const newStateSalad = state.salad + 1;
             return {
                 ...state,
-                salad: state.salad + 1,
+                salad: newStateSalad,
                 filling: state.filling.concat('Salad')
             };
         }
@@ -62,9 +67,11 @@ const rootReducer = (state=initialState, action) => {
             if( (state.salad > 0) && (state.filling !== [])){
                 const newFilling = [...state.filling];
                 newFilling.splice(state.filling.indexOf('Salad'), 1);
+
+                const newStateSalad = state.salad - 1;
                 return {
                     ...state,
-                    salad: state.salad - 1,
+                    salad: newStateSalad,
                     filling: newFilling
                 };
 
@@ -73,10 +80,11 @@ const rootReducer = (state=initialState, action) => {
         }
 
         case newCheese:{
+            const newStateCheese = state.cheese + 1;
             return {
                 ...state,
                 filling: state.filling.concat('Cheese'),
-                cheese: state.cheese + 1
+                cheese: newStateCheese,
             };
         }
 
@@ -84,19 +92,22 @@ const rootReducer = (state=initialState, action) => {
             if( (state.cheese > 0) && (state.filling !== [])){
                 const newFilling=[...state.filling];
                 newFilling.splice(state.filling.indexOf('Cheese'), 1);
+
+                const newStateCheese = state.cheese - 1;
                 return {
                     ...state,
-                    cheese: state.cheese - 1,
+                    cheese: newStateCheese,
                     filling: newFilling
                 }
             }
             return state;
         }
 
-        case newBacon:{        
+        case newBacon:{
+            const newStateBacon = state.bacon + 1;   
             return {
                 ...state,
-                bacon: state.bacon + 1,
+                bacon: newStateBacon,
                 filling: state.filling.concat('Bacon')
             }
         }
@@ -105,20 +116,15 @@ const rootReducer = (state=initialState, action) => {
             if( (state.bacon > 0) && (state.filling !== [])){
                 const newFilling = [...state.filling];
                 newFilling.splice(state.filling.indexOf('Bacon'), 1);
+
+                const newStateBacon = state.bacon - 1;
                 return {
                     ...state,
-                    bacon: state.bacon - 1,
+                    bacon: newStateBacon,
                     filling: newFilling
                 }
             }
             return state;
-        }
-
-        case alterOrder:{
-            return {
-                ...state,
-                order: !state.order
-            }
         }
 
         case alterFilling:{
@@ -129,23 +135,17 @@ const rootReducer = (state=initialState, action) => {
         }
 
         case updatePrice: {
-                const newPrice = (state.meat * 1.3) + (state.salad * 0.5) + (state.bacon * 0.7) + (state.cheese * 0.4) + 2;
-                return {
-                    ...state,
-                    price: newPrice
-                }
-            }
-
-        case alterSide:{
-            return{
+            const {meat, salad, bacon, cheese} = state;
+            const newPrice = (meat * 1.3) + (salad * 0.5) + (bacon * 0.7) + (cheese * 0.4) + 2;
+            return {
                 ...state,
-                side: !state.side,
+                price: newPrice
             }
         }
-        
+
         default:
             return state;
     }
 };
 
-export default rootReducer;
+export default fillingManagementReducer;

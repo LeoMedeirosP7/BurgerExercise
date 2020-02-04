@@ -12,16 +12,27 @@ const burger = (props) => {
       onSortEnd
      } = props;
 
-    const verify = (filling.length !== 0);
+    const verify = filling.length !== 0;
 
-    const SortableItem = SortableElement(({value}) => <BurgerIngredient ingredient={value}/>);
+    const SortableItem = SortableElement(
+      ( {value} ) => <BurgerIngredient ingredient={value} />
+    );
 
-    const SortableList = SortableContainer(({items}) => {
+    const SortableList = SortableContainer( ( {items} ) => {
         return (
           <ul className="Sortable">
-            {items.map((value, index) => (
-              <SortableItem className="Sortable" key={`item-${value}`} index={index} value={value} />
-            ))}
+            {
+              items.map(
+                (value, index) => (
+                  <SortableItem 
+                      className="Sortable"
+                      key={`item-${value}`}
+                      index={index} 
+                      value={value} 
+                  />
+                )
+              )
+            }
           </ul>
         );
       });
@@ -29,7 +40,15 @@ const burger = (props) => {
     return(
                 <div className="Hoc">
                     <BurgerIngredient ingredient='BreadTop' />
-                        {verify ? <SortableList items={filling} onSortEnd={onSortEnd} /> : (<b className="addCaption">ADD YOUR INGREDIENTS HERE</b>)}
+                        {
+                          verify ? 
+                              <SortableList items={filling} onSortEnd={onSortEnd} /> 
+                          : 
+                              <b className="addCaption">
+                                ADD YOUR INGREDIENTS HERE
+                              </b>
+
+                        }
                     <BurgerIngredient ingredient='BreadBottom' />
                 </div>
     );

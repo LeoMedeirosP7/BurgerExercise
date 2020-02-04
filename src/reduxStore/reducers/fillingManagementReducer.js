@@ -27,6 +27,8 @@ const {
     updatePrice,
 } = Actions;
 
+
+
 const fillingManagementReducer = (state=initialState, action) => {
     switch(action.type){
         case newMeat:{

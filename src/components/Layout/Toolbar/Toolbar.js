@@ -8,7 +8,9 @@ const toolbar = (props) => (
     <header>
         <div className="Toolbar">
             <div className="Menu" onClick={props.menu}>
-                <p className="textMenu">Menu</p>
+                <p className="textMenu">
+                    Menu
+                </p>
             </div>
             <Logo />
             <Navigation contextClass="ToolB"/>

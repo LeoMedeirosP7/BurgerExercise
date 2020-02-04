@@ -7,10 +7,12 @@ import PropTypes from 'prop-types';
 const sideDrawer = (props) => {
     return(
         props.on ?
-        <div className="SideDrawer">
-            <Logo />
-            <Navigation contextClass="side"/>
-        </div> : null
+            <div className="SideDrawer">
+                <Logo />
+                <Navigation contextClass="side" />
+            </div> 
+        :
+            null
     );
 };
 

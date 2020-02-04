@@ -7,11 +7,21 @@ const buildControl = (props) => {
     return (
         <div className="BuildControl">
             
-            <button className="Button" onClick={() => rmv(ingredient)}><b>-</b></button>
+            <button 
+                className="Button" 
+                onClick={() => rmv(ingredient)}
+            >
+                    <b>-</b>
+            </button>
             
             <p className="BuildCaption">{ingredient}</p>
             
-            <button className="Button" onClick={() => add(ingredient)}><b>+</b></button>
+            <button 
+                className="Button" 
+                onClick={() => add(ingredient)}
+            >
+                <b>+</b>
+            </button>
         </div>
     );
 };

@@ -40,11 +40,26 @@ const Lay = (props) => {
         cheese,
         price,
     } = props.fillingManagement;
-
+    
     const {
         order,
         side
     } = props.pageManagement;
+    
+    let classeMain = "";
+
+    let classeGroup="Group";
+
+    if (side) {
+        classeMain="Side";
+        classeGroup += " GroupCentralize";
+    } 
+    else
+        classeMain="Setup";
+
+    const ingredients = [meat, salad, bacon, cheese];
+
+
 
     const onSortEnd = ({oldIndex, newIndex}) => {
         const newPosition = arrayMove(filling, oldIndex, newIndex);
@@ -113,17 +128,14 @@ const Lay = (props) => {
         setOrder();
     }
 
-    const ingredients = [meat, salad, bacon, cheese];
-    useEffect(() => {setPrice();} , [meat, salad, bacon, cheese]);
+    useEffect(
+        () => {
+            setPrice();
+        } ,
+        [meat, salad, bacon, cheese]
+    );
 
-    let classeMain = "";
-    let classeGroup="Group";
-    if (side) {
-        classeMain="Side";
-        classeGroup += " GroupCentralize";
-    } else {
-        classeMain="Setup";
-    }
+
     return(
         <div>
             <Toolbar menu={() => setSide()} />
@@ -141,11 +153,23 @@ const Lay = (props) => {
                         onSortEnd={onSortEnd}
                     />
 
-                    <b className="priceCaption">PRICE: U${price.toFixed(2)}</b>
+                    <b className="priceCaption">
+                        PRICE: U${ price.toFixed(2) }
+                    </b>
 
-                    <BuildControls add={addIngredient} rmv={removeIngredient} />
+                    <BuildControls 
+                        add={addIngredient} 
+                        rmv={removeIngredient} 
+                    />
 
-                    <button className='OrderButton' onClick={() => setOrder()}>Order Summary</button>
+                    <button 
+                        className='OrderButton' 
+                        onClick={
+                            () => setOrder()
+                        }
+                    >
+                        Order Summary
+                    </button>
 
                     <OrderSummary 
                         order={order} 
@@ -164,12 +188,15 @@ const Lay = (props) => {
     );
 }
 
-const mapStateToProps = state => ({ 
+const mapStateToProps = state => (
+    { 
         fillingManagement: state.fillingManagement, 
         pageManagement: state.pageManagement
-});
+    }
+);
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => (
+    {
         setFilling: (localFilling) => dispatch({type: Actions.alterFilling, value: localFilling}),
         addMeat: () => dispatch({type: Actions.newMeat}),
         rmvMeat: () => dispatch({type: Actions.removeMeat}),
@@ -182,7 +209,8 @@ const mapDispatchToProps = dispatch => ({
         setPrice: () => dispatch(({type: Actions.updatePrice})),
         setOrder: () => dispatch({type: Actions.alterOrder}),
         setSide: () => dispatch({type: Actions.alterSide}),
-});
+    }
+);
 
 Lay.propTypes = {
     fillingManagement: PropTypes.object,
